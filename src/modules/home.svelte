@@ -12,6 +12,7 @@
         WebGLRenderer
     } from 'three';
     import {onMount} from "svelte";
+    import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
     let windowInnerWidth: number;
     let windowInnerHeight: number;
@@ -32,7 +33,7 @@
     const cubeMaterial = new MeshStandardMaterial({color: 'yellow'});
     const cube = new Mesh(cubeGeometry, cubeMaterial);
     cube.castShadow = true;
-    cube.position.z = 2;
+    cube.position.z = 4;
     scene.add(cube);
 
     const light = new DirectionalLight;
@@ -40,7 +41,7 @@
     light.castShadow = true;
     scene.add(light);
 
-    const planeGeometry = new PlaneGeometry(5, 5);
+    const planeGeometry = new BoxGeometry(5, 5, 5);
     const planeMaterial = new MeshStandardMaterial({color: 'green'})
     const plane = new Mesh(planeGeometry, planeMaterial);
     plane.receiveShadow = true;
@@ -55,6 +56,7 @@
         camera.aspect = windowInnerWidth / windowInnerHeight;
         camera.updateProjectionMatrix();
 
+        new OrbitControls(camera, renderer.domElement);
         animate();
     })
 
